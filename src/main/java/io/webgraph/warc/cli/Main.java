@@ -18,7 +18,20 @@ public class Main {
         InputStream input = args.length > 1 ? new FileInputStream(args[1]) : System.in;
         OutputStream output = System.out;
 
-        if (subcommand.equals("head"))
+        if (subcommand.equals("help"))
+
+            System.out.print("" +
+                "usage: warc <command> [<file>]\n" +
+                "\n" +
+                "where <command> is one of:\n" +
+                "   head       display the first 10 warc records\n" +
+                "   tail       display the last 3 warc records\n" +
+                "\n" +
+                "and where <file> is a plain or gzipped warc file. If omitted, \n" +
+                "warc data is read from standard input.\n" +
+                "\n");
+
+        else if (subcommand.equals("head"))
 
             try (Warc.Reader reader = new Warc.Reader(input);
                  Warc.Writer writer = new Warc.Writer(output)) {
