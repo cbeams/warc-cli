@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
+        <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="2" />
+        <option name="IMPORT_LAYOUT_TABLE">
+          <value>
+            <package name="" withSubpackages="true" static="true" />
+            <emptyLine />
+            <emptyLine />
+            <emptyLine />
+            <emptyLine />
+            <package name="" withSubpackages="true" static="false" />
+          </value>
+        </option>
+        <XML>
+          <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
+        <codeStyleSettings language="JAVA">
+          <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
+          <option name="BLANK_LINES_AROUND_CLASS" value="2" />
+          <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
+        </codeStyleSettings>
+      </value>
+    </option>
+    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+  </component>
+</project>
