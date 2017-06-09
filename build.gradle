@@ -18,3 +18,9 @@ dependencies {
     compile("io.webgraph:warc:master-SNAPSHOT")
     compile("com.google.guava:guava:21.0")
 }
+
+shadowJar {
+    baseName = 'warc'
+    classifier = null
+    version = null
+}
