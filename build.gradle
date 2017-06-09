@@ -8,3 +8,13 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 mainClassName = "io.webgraph.warc.cli.Main"
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile("io.webgraph:warc:master-SNAPSHOT")
+    compile("com.google.guava:guava:21.0")
+}

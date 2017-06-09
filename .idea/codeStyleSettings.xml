@@ -7,6 +7,12 @@
         <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="2" />
         <option name="IMPORT_LAYOUT_TABLE">
           <value>
+            <package name="io.webgraph.warc" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="java.io" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="com.google.common.collect" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="" withSubpackages="true" static="true" />
             <emptyLine />
             <emptyLine />
