@@ -29,7 +29,7 @@ class WarcTail extends SubCommand {
     @CommandLine.Option(
         names = "-n",
         description = "The number of records to display")
-    int count;
+    int count = 10;
 
     @CommandLine.Parameters(
         arity = "0..1",
