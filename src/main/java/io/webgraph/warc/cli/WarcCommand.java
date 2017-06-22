@@ -28,7 +28,7 @@ class WarcCommand extends BaseCommand {
         help = true)
     boolean version;
 
-    public int run(CommandLine command, List<CommandLine> subcommands, List<String> unmatchedArguments) throws IOException {
+    public int run(CommandLine command, List<CommandLine> subcommands, List<String> unmatchedArgs) throws IOException {
 
         if (version) {
             out.println("0.1.0");
@@ -40,8 +40,8 @@ class WarcCommand extends BaseCommand {
             return 0;
         }
 
-        if (!unmatchedArguments.isEmpty()) {
-            String arg = unmatchedArguments.get(0);
+        if (!unmatchedArgs.isEmpty()) {
+            String arg = unmatchedArgs.get(0);
             out.println(format("unknown %s: %s", arg.startsWith("-") ? "option" : "command", arg));
             command.usage(out);
             return 1;
