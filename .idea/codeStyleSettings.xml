@@ -9,6 +9,8 @@
           <value>
             <package name="io.webgraph.warc" withSubpackages="true" static="false" />
             <emptyLine />
+            <package name="picocli" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="java.io" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="com.google.common.collect" withSubpackages="true" static="false" />

@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     compile("io.webgraph:warc:master-SNAPSHOT")
+    compile("info.picocli:picocli:0.9.7")
     compile("com.google.guava:guava:21.0")
 }
 
