@@ -16,10 +16,16 @@ import static java.lang.System.out;
     footerHeading = "%n")
 class WarcCommand extends BaseCommand {
 
-    @CommandLine.Option(names = "--help", help = true)
+    @CommandLine.Option(
+        names = {"-h", "--help"},
+        description = "Display this help text",
+        help = true)
     boolean help;
 
-    @CommandLine.Option(names = "--version", help = true)
+    @CommandLine.Option(
+        names = "--version",
+        description = "Display the version",
+        help = true)
     boolean version;
 
     public int run(CommandLine command, List<CommandLine> subcommands, List<String> unmatchedArguments) throws IOException {

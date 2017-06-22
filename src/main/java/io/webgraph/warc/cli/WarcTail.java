@@ -17,13 +17,18 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "tail",
-    description = "display the first 10 warc records from <file> or STDIN")
+    description = "Display the last 3 records from <file> or <stdin>")
 class WarcTail extends SubCommand {
 
-    @CommandLine.Option(names = "--help", help = true)
+    @CommandLine.Option(
+        names = {"-h", "--help"},
+        description = "Display this help text",
+        help = true)
     boolean help;
 
-    @CommandLine.Parameters(arity = "0..1")
+    @CommandLine.Parameters(
+        arity = "0..1",
+        description = "The WARC file to read")
     File file;
 
     @Override

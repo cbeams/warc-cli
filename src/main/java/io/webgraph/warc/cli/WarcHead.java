@@ -14,13 +14,18 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "head",
-    description = "display the last 3 warc records of <file> or STDIN")
+    description = "Display the first record from <file> or <stdin>")
 class WarcHead extends SubCommand {
 
-    @CommandLine.Option(names = "--help", help = true)
+    @CommandLine.Option(
+        names = {"-h", "--help"},
+        help = true,
+        description = "Display this help text")
     boolean help;
 
-    @CommandLine.Parameters(arity = "0..1")
+    @CommandLine.Parameters(
+        arity = "0..1",
+        description = "The WARC file to read")
     File file;
 
     @Override
