@@ -17,7 +17,7 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "tail",
-    description = "Display the last 3 records from <file> or <stdin>")
+    description = "Display the last <n> records from <file> or <stdin>")
 class WarcTail extends SubCommand {
 
     @CommandLine.Option(
@@ -25,6 +25,11 @@ class WarcTail extends SubCommand {
         description = "Display this help text",
         help = true)
     boolean help;
+
+    @CommandLine.Option(
+        names = "-n",
+        description = "The number of records to display")
+    int count;
 
     @CommandLine.Parameters(
         arity = "0..1",
@@ -44,7 +49,7 @@ class WarcTail extends SubCommand {
         try (Warc.Reader reader = new Warc.Reader(input);
              Warc.Writer writer = new Warc.Writer(output)) {
 
-            EvictingQueue<WarcRecord> records = EvictingQueue.create(3);
+            EvictingQueue<WarcRecord> records = EvictingQueue.create(count);
 
             reader.forEach(records::add);
             records.forEach(writer::write);

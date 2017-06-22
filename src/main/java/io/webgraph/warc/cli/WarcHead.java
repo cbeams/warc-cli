@@ -14,7 +14,7 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "head",
-    description = "Display the first record from <file> or <stdin>")
+    description = "Display the first <n> records from <file> or <stdin>")
 class WarcHead extends SubCommand {
 
     @CommandLine.Option(
@@ -22,6 +22,11 @@ class WarcHead extends SubCommand {
         help = true,
         description = "Display this help text")
     boolean help;
+
+    @CommandLine.Option(
+        names = "-n",
+        description = "The number of records to display")
+    int count;
 
     @CommandLine.Parameters(
         arity = "0..1",
@@ -43,7 +48,7 @@ class WarcHead extends SubCommand {
              Warc.Writer writer = new Warc.Writer(output)) {
 
             reader.stream()
-                .limit(1)
+                .limit(count)
                 .forEach(writer::write);
         }
 
