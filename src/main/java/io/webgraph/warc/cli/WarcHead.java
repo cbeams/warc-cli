@@ -17,17 +17,20 @@ import static java.lang.System.out;
 
 @Command(
     name = "head",
-    description = "Display first records of a WARC file")
+    description = "Display first records of a WARC file"
+)
 class WarcHead extends Warc.Subcommand {
 
     @Option(
         names = "-n",
-        description = "The number of records to display")
+        description = "The number of records to display"
+    )
     int count = 10;
 
     @Parameters(
         arity = "0..1",
-        description = "The WARC file to read")
+        description = "The WARC file to read"
+    )
     File file;
 
     @Override
