@@ -12,6 +12,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        preprocess(args);
+
         List<CommandLine> commands = new CommandLine(new WarcCommand())
             .setUnmatchedArgumentsAllowed(true)
             .addSubcommand("head", new WarcHead())
@@ -21,5 +23,11 @@ public class Main {
         CommandLine warc = commands.remove(0);
         int status = ((WarcCommand) warc.getCommand()).run(warc, commands, warc.getUnmatchedArguments());
         exit(status);
+    }
+
+    private static void preprocess(String[] args) {
+        for (int i = 0; i < args.length; i++)
+            if (args[i].matches("-\\d+"))
+                args[i] = "-n=" + args[i].substring(1);
     }
 }
