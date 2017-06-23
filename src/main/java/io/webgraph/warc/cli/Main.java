@@ -26,6 +26,7 @@ public class Main {
             .addSubcommand("cat", new WarcCat())
             .addSubcommand("count", new WarcCount())
             .addSubcommand("head", new WarcHead())
+            .addSubcommand("seek", new WarcSeek())
             .addSubcommand("tail", new WarcTail())
             .parse(args);
 
