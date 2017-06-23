@@ -7,14 +7,21 @@ import java.io.IOException;
 import java.util.List;
 
 import static java.lang.System.exit;
+import static java.lang.System.out;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        exit(run(args));
+    }
 
-        preprocess(args);
+    public static int run(String[] args) throws IOException {
 
-        List<CommandLine> commands = new CommandLine(new WarcCommand())
+        for (int i = 0; i < args.length; i++)
+            if (args[i].matches("-\\d+"))
+                args[i] = "-n=" + args[i].substring(1);
+
+        List<CommandLine> commandLines = new CommandLine(new Warc())
             .setUnmatchedArgumentsAllowed(true)
             .addSubcommand("cat", new WarcCat())
             .addSubcommand("count", new WarcCount())
@@ -22,14 +29,16 @@ public class Main {
             .addSubcommand("tail", new WarcTail())
             .parse(args);
 
-        CommandLine warc = commands.remove(0);
-        int status = ((WarcCommand) warc.getCommand()).run(warc, commands, warc.getUnmatchedArguments());
-        exit(status);
-    }
+        CommandLine commandLine = commandLines.get(0);
 
-    private static void preprocess(String[] args) {
-        for (int i = 0; i < args.length; i++)
-            if (args[i].matches("-\\d+"))
-                args[i] = "-n=" + args[i].substring(1);
+        if (commandLines.size() != 2) {
+            commandLine.usage(out);
+            return 1;
+        }
+
+        CommandLine subcommandLine = commandLines.get(1);
+
+        Warc warc = (Warc) commandLine.getCommand();
+        return warc.run(commandLine, subcommandLine);
     }
 }

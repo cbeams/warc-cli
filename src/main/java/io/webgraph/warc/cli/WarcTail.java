@@ -1,7 +1,8 @@
 package io.webgraph.warc.cli;
 
-import io.webgraph.warc.Warc;
+import io.webgraph.warc.WarcReader;
 import io.webgraph.warc.WarcRecord;
+import io.webgraph.warc.WarcWriter;
 
 import picocli.CommandLine;
 
@@ -17,23 +18,27 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "tail",
-    description = "Display last records of a WARC file")
-class WarcTail extends SubCommand {
+    description = "Display last records of a WARC file"
+)
+class WarcTail extends Warc.Subcommand {
 
     @CommandLine.Option(
         names = {"-h", "--help"},
         description = "Display this help text",
-        help = true)
+        help = true
+    )
     boolean help;
 
     @CommandLine.Option(
         names = "-n",
-        description = "The number of records to display")
+        description = "The number of records to display"
+    )
     int count = 10;
 
     @CommandLine.Parameters(
         arity = "0..1",
-        description = "The WARC file to read")
+        description = "The WARC file to read"
+    )
     File file;
 
     @Override
@@ -46,8 +51,8 @@ class WarcTail extends SubCommand {
         InputStream input = file != null ? new FileInputStream(file) : System.in;
         OutputStream output = out;
 
-        try (Warc.Reader reader = new Warc.Reader(input);
-             Warc.Writer writer = new Warc.Writer(output)) {
+        try (WarcReader reader = new WarcReader(input);
+             WarcWriter writer = new WarcWriter(output)) {
 
             EvictingQueue<WarcRecord> records = EvictingQueue.create(count);
 

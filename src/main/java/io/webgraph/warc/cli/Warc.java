@@ -7,28 +7,31 @@ import java.io.IOException;
 import java.util.List;
 
 import static java.lang.String.format;
-import static java.lang.System.out;
+import static java.lang.System.*;
 
 @CommandLine.Command(
     name = "warc",
     commandListHeading = "%nsubcommands:%n",
     customSynopsis = "warc [--help] [--version] <subcommand> [<args>]",
-    footerHeading = "%n")
-class WarcCommand extends BaseCommand {
+    footerHeading = "%n"
+)
+class Warc {
 
     @CommandLine.Option(
         names = {"-h", "--help"},
         description = "Display this help text",
-        help = true)
+        help = true
+    )
     boolean help;
 
     @CommandLine.Option(
         names = "--version",
         description = "Display the version",
-        help = true)
+        help = true
+    )
     boolean version;
 
-    public int run(CommandLine command, List<CommandLine> subcommands, List<String> unmatchedArgs) throws IOException {
+    public int run(CommandLine commandLine, CommandLine subcommandLine) throws IOException {
 
         if (version) {
             out.println("0.1.0");
@@ -36,22 +39,28 @@ class WarcCommand extends BaseCommand {
         }
 
         if (help) {
-            command.usage(out);
+            commandLine.usage(out);
             return 0;
         }
+
+        List<String> unmatchedArgs = commandLine.getUnmatchedArguments();
 
         if (!unmatchedArgs.isEmpty()) {
             String arg = unmatchedArgs.get(0);
             out.println(format("unknown %s: %s", arg.startsWith("-") ? "option" : "command", arg));
-            command.usage(out);
+            commandLine.usage(out);
             return 1;
         }
 
-        if (subcommands.isEmpty()) {
-            command.usage(out);
-            return 1;
-        }
+        return ((Subcommand) subcommandLine.getCommand()).run();
+    }
 
-        return ((SubCommand) subcommands.get(0).getCommand()).run();
+
+    @CommandLine.Command(
+        synopsisHeading = "usage: @|bold warc |@"
+    )
+    abstract static class Subcommand {
+
+        public abstract int run() throws IOException;
     }
 }

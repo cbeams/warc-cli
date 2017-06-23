@@ -1,6 +1,6 @@
 package io.webgraph.warc.cli;
 
-import io.webgraph.warc.Warc;
+import io.webgraph.warc.WarcReader;
 
 import org.iokit.core.IOKitException;
 
@@ -18,19 +18,22 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "count",
-    description = "Count number of records in a WARC file")
-class WarcCount extends SubCommand {
+    description = "Count number of records in a WARC file"
+)
+class WarcCount extends Warc.Subcommand {
 
     @CommandLine.Option(
         names = {"-h", "--help"},
         help = true,
-        description = "Display this help text")
+        description = "Display this help text"
+    )
     boolean help;
 
     @CommandLine.Parameters(
         arity = "0..*",
         paramLabel = "file",
-        description = "The file(s) to concatenate")
+        description = "The file(s) to concatenate"
+    )
     File[] files = new File[0];
 
     @Override
@@ -72,7 +75,7 @@ class WarcCount extends SubCommand {
 
         String formattedPath = path == null ? "" : format(" %s", path);
 
-        try (Warc.Reader reader = new Warc.Reader(in)) {
+        try (WarcReader reader = new WarcReader(in)) {
             reader.forEach(record -> {
                 if (reader.getReadCount() % 100 == 0)
                     out.print(format("%8d%s\r", reader.getReadCount(), formattedPath));

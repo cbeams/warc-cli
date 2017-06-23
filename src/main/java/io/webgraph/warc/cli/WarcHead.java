@@ -1,6 +1,7 @@
 package io.webgraph.warc.cli;
 
-import io.webgraph.warc.Warc;
+import io.webgraph.warc.WarcReader;
+import io.webgraph.warc.WarcWriter;
 
 import picocli.CommandLine;
 
@@ -15,7 +16,7 @@ import static java.lang.System.out;
 @CommandLine.Command(
     name = "head",
     description = "Display first records of a WARC file")
-class WarcHead extends SubCommand {
+class WarcHead extends Warc.Subcommand {
 
     @CommandLine.Option(
         names = {"-h", "--help"},
@@ -44,8 +45,8 @@ class WarcHead extends SubCommand {
         InputStream input = file != null ? new FileInputStream(file) : System.in;
         OutputStream output = out;
 
-        try (Warc.Reader reader = new Warc.Reader(input);
-             Warc.Writer writer = new Warc.Writer(output)) {
+        try (WarcReader reader = new WarcReader(input);
+             WarcWriter writer = new WarcWriter(output)) {
 
             reader.stream()
                 .limit(count)
