@@ -8,4 +8,4 @@ Clone this repository, `cd` into it, and:
 
     ./gradlew assemble
     alias warc="java -jar $PWD/build/libs/warc.jar"
-    warc help
+    warc --help
