@@ -17,6 +17,7 @@ public class Main {
         List<CommandLine> commands = new CommandLine(new WarcCommand())
             .setUnmatchedArgumentsAllowed(true)
             .addSubcommand("cat", new WarcCat())
+            .addSubcommand("count", new WarcCount())
             .addSubcommand("head", new WarcHead())
             .addSubcommand("tail", new WarcTail())
             .parse(args);
