@@ -2,11 +2,16 @@ package io.webgraph.warc.cli;
 
 import io.webgraph.warc.Warc;
 
+import org.iokit.core.IOKitException;
+
 import picocli.CommandLine;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import java.util.Arrays;
 
 import static java.lang.String.format;
 import static java.lang.System.out;
@@ -29,7 +34,7 @@ class WarcCount extends SubCommand {
     File[] files = new File[0];
 
     @Override
-    public int run() throws IOException {
+    public int run() {
 
         if (help) {
             CommandLine.usage(this, out);
@@ -37,21 +42,43 @@ class WarcCount extends SubCommand {
         }
 
         if (files.length == 0) {
-            try (Warc.Reader reader = new Warc.Reader(System.in)) {
-                out.println(format("%8d", reader.stream().count()));
-            }
+            countRecords(System.in);
             return 0;
         }
 
-        long total = 0;
-        for (File file : files) {
-            try (Warc.Reader reader = new Warc.Reader(new FileInputStream(file))) {
-                out.println(format("%8d %s", reader.stream().count(), file.getPath()));
-                total += reader.getReadCount();
-            }
-        }
-        out.println(format("%8d total", total));
+        long total = Arrays.stream(files)
+            .mapToLong(this::countRecords)
+            .sum();
+
+        if (files.length > 1)
+            out.println(format("%8d total", total));
 
         return 0;
+    }
+
+    private void countRecords(InputStream in) {
+        countRecords(in, null);
+    }
+
+    private long countRecords(File file) {
+        try {
+            return countRecords(new FileInputStream(file), file.getPath());
+        } catch (FileNotFoundException ex) {
+            throw new IOKitException(ex);
+        }
+    }
+
+    private long countRecords(InputStream in, String path) {
+
+        String formattedPath = path == null ? "" : format(" %s", path);
+
+        try (Warc.Reader reader = new Warc.Reader(in)) {
+            reader.forEach(record -> {
+                if (reader.getReadCount() % 100 == 0)
+                    out.print(format("%8d%s\r", reader.getReadCount(), formattedPath));
+            });
+            out.println(format("%8d%s", reader.getReadCount(), formattedPath));
+            return reader.getReadCount();
+        }
     }
 }
