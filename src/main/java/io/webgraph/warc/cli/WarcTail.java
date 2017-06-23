@@ -17,7 +17,7 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "tail",
-    description = "Display the last <n> records from <file> or <stdin>")
+    description = "Display last records of a WARC file")
 class WarcTail extends SubCommand {
 
     @CommandLine.Option(

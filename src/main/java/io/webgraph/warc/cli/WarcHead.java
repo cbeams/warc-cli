@@ -14,7 +14,7 @@ import static java.lang.System.out;
 
 @CommandLine.Command(
     name = "head",
-    description = "Display the first <n> records from <file> or <stdin>")
+    description = "Display first records of a WARC file")
 class WarcHead extends SubCommand {
 
     @CommandLine.Option(
