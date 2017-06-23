@@ -18,13 +18,6 @@ import static java.lang.System.out;
 )
 class WarcCat extends Warc.Subcommand {
 
-    @CommandLine.Option(
-        names = {"-h", "--help"},
-        help = true,
-        description = "Display this help text"
-    )
-    boolean help;
-
     @CommandLine.Parameters(
         arity = "0..*",
         paramLabel = "file",
@@ -33,12 +26,7 @@ class WarcCat extends Warc.Subcommand {
     File[] files = new File[0];
 
     @Override
-    public int run() throws IOException {
-
-        if (help) {
-            CommandLine.usage(this, out);
-            return 0;
-        }
+    public int doRun() throws IOException {
 
         if (files.length == 0) {
             cat(System.in);

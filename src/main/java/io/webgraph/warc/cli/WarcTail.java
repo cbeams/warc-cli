@@ -23,13 +23,6 @@ import static java.lang.System.out;
 class WarcTail extends Warc.Subcommand {
 
     @CommandLine.Option(
-        names = {"-h", "--help"},
-        description = "Display this help text",
-        help = true
-    )
-    boolean help;
-
-    @CommandLine.Option(
         names = "-n",
         description = "The number of records to display"
     )
@@ -42,11 +35,7 @@ class WarcTail extends Warc.Subcommand {
     File file;
 
     @Override
-    public int run() throws IOException {
-        if (help) {
-            CommandLine.usage(this, out);
-            return 0;
-        }
+    public int doRun() throws IOException {
 
         InputStream input = file != null ? new FileInputStream(file) : System.in;
         OutputStream output = out;

@@ -22,13 +22,6 @@ import static java.lang.System.out;
 )
 class WarcCount extends Warc.Subcommand {
 
-    @CommandLine.Option(
-        names = {"-h", "--help"},
-        help = true,
-        description = "Display this help text"
-    )
-    boolean help;
-
     @CommandLine.Parameters(
         arity = "0..*",
         paramLabel = "file",
@@ -37,12 +30,7 @@ class WarcCount extends Warc.Subcommand {
     File[] files = new File[0];
 
     @Override
-    public int run() {
-
-        if (help) {
-            CommandLine.usage(this, out);
-            return 0;
-        }
+    public int doRun() {
 
         if (files.length == 0) {
             countRecords(System.in);

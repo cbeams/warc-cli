@@ -61,6 +61,23 @@ class Warc {
     )
     abstract static class Subcommand {
 
-        public abstract int run() throws IOException;
+        @CommandLine.Option(
+            names = {"-h", "--help"},
+            help = true,
+            description = "Display this help text"
+        )
+        boolean help;
+
+        public int run() throws IOException {
+
+            if (help) {
+                CommandLine.usage(this, out);
+                return 0;
+            }
+
+            return doRun();
+        }
+
+        public abstract int doRun() throws IOException;
     }
 }

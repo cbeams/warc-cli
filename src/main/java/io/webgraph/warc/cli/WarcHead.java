@@ -19,12 +19,6 @@ import static java.lang.System.out;
 class WarcHead extends Warc.Subcommand {
 
     @CommandLine.Option(
-        names = {"-h", "--help"},
-        help = true,
-        description = "Display this help text")
-    boolean help;
-
-    @CommandLine.Option(
         names = "-n",
         description = "The number of records to display")
     int count = 10;
@@ -35,12 +29,7 @@ class WarcHead extends Warc.Subcommand {
     File file;
 
     @Override
-    public int run() throws IOException {
-
-        if (help) {
-            CommandLine.usage(this, out);
-            return 0;
-        }
+    public int doRun() throws IOException {
 
         InputStream input = file != null ? new FileInputStream(file) : System.in;
         OutputStream output = out;
