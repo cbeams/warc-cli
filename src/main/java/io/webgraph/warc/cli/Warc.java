@@ -1,6 +1,8 @@
 package io.webgraph.warc.cli;
 
 import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 
 import java.io.IOException;
 
@@ -9,7 +11,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static java.lang.System.*;
 
-@CommandLine.Command(
+@Command(
     name = "warc",
     commandListHeading = "%nsubcommands:%n",
     customSynopsis = "warc [--help] [--version] <subcommand> [<args>]",
@@ -17,14 +19,14 @@ import static java.lang.System.*;
 )
 class Warc {
 
-    @CommandLine.Option(
+    @Option(
         names = {"-h", "--help"},
         description = "Display this help text",
         help = true
     )
     boolean help;
 
-    @CommandLine.Option(
+    @Option(
         names = "--version",
         description = "Display the version",
         help = true
@@ -56,12 +58,12 @@ class Warc {
     }
 
 
-    @CommandLine.Command(
+    @Command(
         synopsisHeading = "usage: @|bold warc |@"
     )
     abstract static class Subcommand {
 
-        @CommandLine.Option(
+        @Option(
             names = {"-h", "--help"},
             help = true,
             description = "Display this help text"

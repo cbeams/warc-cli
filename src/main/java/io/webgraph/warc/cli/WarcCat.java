@@ -3,7 +3,8 @@ package io.webgraph.warc.cli;
 import io.webgraph.warc.WarcReader;
 import io.webgraph.warc.WarcWriter;
 
-import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,13 +13,13 @@ import java.io.InputStream;
 
 import static java.lang.System.out;
 
-@CommandLine.Command(
+@Command(
     name = "cat",
     description = "Concatenate and print WARC files"
 )
 class WarcCat extends Warc.Subcommand {
 
-    @CommandLine.Parameters(
+    @Parameters(
         arity = "0..*",
         paramLabel = "file",
         description = "The WARC file(s) to concatenate"

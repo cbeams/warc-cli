@@ -4,7 +4,8 @@ import io.webgraph.warc.WarcReader;
 
 import org.iokit.core.IOKitException;
 
-import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,13 +17,13 @@ import java.util.Arrays;
 import static java.lang.String.format;
 import static java.lang.System.out;
 
-@CommandLine.Command(
+@Command(
     name = "count",
     description = "Count number of records in a WARC file"
 )
 class WarcCount extends Warc.Subcommand {
 
-    @CommandLine.Parameters(
+    @Parameters(
         arity = "0..*",
         paramLabel = "file",
         description = "The file(s) to concatenate"
